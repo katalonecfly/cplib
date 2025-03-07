@@ -1,7 +1,7 @@
 - factorize, sieve
 - modular int
 - combinatorial: binom, factorial
-- split string by character
++ split string by character
 - mo's
 - nearest greater(or any comparator) left/right
 - prefix sum 2d/3d
