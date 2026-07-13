@@ -12,6 +12,8 @@ class SparseTable {
     vector<vector<T>> table;
     F func;
 
+    SparseTable() = default;
+
     SparseTable(const vector<T> &v, const F &f) : n((int) v.size()), a(v), func(f) {
       if (n == 0) return;
       int lg = floor_log2(n);
