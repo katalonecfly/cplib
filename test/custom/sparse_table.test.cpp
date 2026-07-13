@@ -11,6 +11,7 @@ void test_min(){
   assert(st.prod(1, 3) == 1);
   assert(st.prod(0, 5) == 1);
   assert(st.prod(4, 4) == 4);
+  assert(st.prod_index(1, 4) == 2);
 }
 
 void test_max(){
@@ -25,6 +26,7 @@ void test_max(){
   assert(st.prod(0, 2) == 423456789123456);
   assert(st.prod(0, 4) == 423456789123456);
   assert(st.prod(0, 1) == 223456789123456);
+  assert(st.prod_index(1, 3) == 2);
 }
 
 void test(){
