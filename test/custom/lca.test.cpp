@@ -47,6 +47,17 @@ void test_simple(){
   pair<int, pair<int, int>> diameter1 = {5, {5, 6}};
   pair<int, pair<int, int>> diameter2 = {5, {6, 5}};
   assert(lca.diameter() == diameter1 || lca.diameter() == diameter2);
+  assert(lca.on_path(1, 3, 5) == true);
+  assert(lca.on_path(4, 3, 5) == true);
+  assert(lca.on_path(2, 3, 5) == false);
+  assert(lca.on_path(1, 1, 1) == true);
+  assert(lca.kth_node_on_path(6, 5, 0) == 6);
+  assert(lca.kth_node_on_path(6, 5, 1) == 2);
+  assert(lca.kth_node_on_path(6, 5, 2) == 0);
+  assert(lca.kth_node_on_path(6, 5, 3) == 1);
+  assert(lca.kth_node_on_path(6, 5, 4) == 4);
+  assert(lca.kth_node_on_path(6, 5, 5) == 5);
+  assert(lca.kth_node_on_path(6, 5, 6) == -1);
 }
 
 

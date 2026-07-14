@@ -59,7 +59,7 @@ class Lca {
       return up[u][0];
     }
 
-    int kth_ancestor (int v, int k) {
+    int kth_ancestor(int v, int k) {
       if (k >> (l + 1)) {
         return -1;
       }
@@ -71,7 +71,7 @@ class Lca {
       return v;
     }
 
-    int distance (int u, int v) {
+    int distance(int u, int v) {
       return depth[u] + depth[v] - 2 * depth[lca(u, v)];
     }
 
@@ -91,5 +91,22 @@ class Lca {
       auto a = FarthestFrom(0);
       auto b = FarthestFrom(a);
       return {distance(a, b), {a, b}};
+    }
+
+    bool on_path(int x, int u, int v) {
+      return (is_ancestor(x, u) || is_ancestor(x, v)) && is_ancestor(lca(u, v), x);
+    }
+
+    int kth_node_on_path(int u, int v, int k) {
+      int ancestor = lca(u, v);
+      int le = depth[u] - depth[ancestor];
+      int ri = depth[v] - depth[ancestor];
+      if (k < 0 || k > le + ri) {
+        return -1;
+      }
+      if (k < le) {
+        return kth_ancestor(u, k);
+      }
+      return kth_ancestor(v, le + ri - k);
     }
 };
