@@ -72,11 +72,24 @@ class Lca {
     }
 
     int distance (int u, int v) {
-      if (is_ancestor(u, v)) {
-        return depth[v] - depth[u];
-      } else if(is_ancestor(v, u)) {
-        return depth[u] - depth[v];
-      }
       return depth[u] + depth[v] - 2 * depth[lca(u, v)];
+    }
+
+    pair<int, pair<int, int>> diameter() {
+      auto FarthestFrom = [&](int node) -> int{
+        int best = -1;
+        int best_dist = -1;
+        for (int i = 0; i < n; ++i) {
+          int dist = distance(node, i);
+          if (dist > best_dist) {
+            best_dist = dist;
+            best = i;
+          }
+        }
+        return best;
+      };
+      auto a = FarthestFrom(0);
+      auto b = FarthestFrom(a);
+      return {distance(a, b), {a, b}};
     }
 };

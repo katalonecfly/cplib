@@ -44,6 +44,9 @@ void test_simple(){
   assert(lca.distance(5, 1) == 2);
   assert(lca.distance(3, 5) == 3);
   assert(lca.distance(5, 6) == 5);
+  pair<int, pair<int, int>> diameter1 = {5, {5, 6}};
+  pair<int, pair<int, int>> diameter2 = {5, {6, 5}};
+  assert(lca.diameter() == diameter1 || lca.diameter() == diameter2);
 }
 
 
