@@ -15,15 +15,19 @@ class Lca {
       timer = 0;
       tin.resize(n);
       tout.resize(n);
-      up.assign(n, vector<int>(l + 1));
-      dfs(root, root);
+      up.assign(n, vector<int>(l + 1, -1));
+      dfs(root, -1);
     }
 
     void dfs(int node, int parent) {
       tin[node] = ++timer;
       up[node][0] = parent;
       for (int i = 1; i <= l; ++i) {
-        up[node][i] = up[up[node][i - 1]][i - 1];
+        if (up[node][i - 1] == -1) {
+          up[node][i] = -1;
+        } else {
+          up[node][i] = up[up[node][i - 1]][i - 1];
+        }
       }
       for (auto to : adj[node]) {
         if(to != parent) {
@@ -45,10 +49,22 @@ class Lca {
         return v;
       }
       for (int i = l; i >= 0; --i) {
-        if(!is_ancestor(up[u][i], v)) {
+        if(up[u][i] != -1 && !is_ancestor(up[u][i], v)) {
           u = up[u][i];
         }
       }
       return up[u][0];
+    }
+
+    int kth_ancestor (int v, int k) {
+      if (k >> (l + 1)) {
+        return -1;
+      }
+      for (int j = 0; j <= l && v != -1; ++j) {
+        if (k & (1 << j)) {
+          v = up[v][j];
+        }
+      }
+      return v;
     }
 };
