@@ -7,6 +7,7 @@ class Lca {
     vector<int> tin;
     vector<int> tout;
     vector<vector<int>> up;
+    vector<int> depth;
 
     Lca(const vector<vector<int>> &_adj, int root = 0) {
       adj = _adj;
@@ -16,10 +17,12 @@ class Lca {
       tin.resize(n);
       tout.resize(n);
       up.assign(n, vector<int>(l + 1, -1));
-      dfs(root, -1);
+      depth.resize(n);
+      dfs(root, -1, 0);
     }
 
-    void dfs(int node, int parent) {
+    void dfs(int node, int parent, int d) {
+      depth[node] = d;
       tin[node] = ++timer;
       up[node][0] = parent;
       for (int i = 1; i <= l; ++i) {
@@ -31,7 +34,7 @@ class Lca {
       }
       for (auto to : adj[node]) {
         if(to != parent) {
-          dfs(to, node);
+          dfs(to, node, d + 1);
         }
       }
       tout[node] = ++timer;
@@ -66,5 +69,14 @@ class Lca {
         }
       }
       return v;
+    }
+
+    int distance (int u, int v) {
+      if (is_ancestor(u, v)) {
+        return depth[v] - depth[u];
+      } else if(is_ancestor(v, u)) {
+        return depth[u] - depth[v];
+      }
+      return depth[u] + depth[v] - 2 * depth[lca(u, v)];
     }
 };

@@ -6,6 +6,15 @@ using namespace std;
 
 
 void test_simple(){
+  /*
+          0
+        /   \
+       1     2
+      / \     \
+     3   4     6
+          \
+           5
+  */
   vector<vector<int>> adj = {
     {1, 2},
     {0, 3, 4},
@@ -21,6 +30,7 @@ void test_simple(){
   assert(lca.lca(5, 1) == 1);
   assert(lca.lca(2, 6) == 2);
   assert(lca.lca(3, 5) == 1);
+  assert(lca.lca(1, 1) == 1);
   assert(lca.is_ancestor(0, 1) == true);
   assert(lca.is_ancestor(1, 0) == false);
   assert(lca.kth_ancestor(5, 0) == 5);
@@ -29,6 +39,11 @@ void test_simple(){
   assert(lca.kth_ancestor(5, 3) == 0);
   assert(lca.kth_ancestor(5, 4) == -1);
   assert(lca.kth_ancestor(5, 100) == -1);
+  assert(lca.distance(1, 1) == 0);
+  assert(lca.distance(1, 5) == 2);
+  assert(lca.distance(5, 1) == 2);
+  assert(lca.distance(3, 5) == 3);
+  assert(lca.distance(5, 6) == 5);
 }
 
 
